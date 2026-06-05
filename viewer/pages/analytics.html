@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحليل البيانات - التقارير الهندسية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="../style/analytics.css">
+</head>
+
+<body>
+    <div class="app-header">
+        <div><button class="btn-secondary" onclick="window.location.href='../index.html'">⬅ العودة</button>
+        </div>
+        <div>📊 تحليل البيانات المتقدم</div>
+        <div></div>
+    </div>
+    <div class="page-content">
+        <div id="report-info" style="margin-bottom:20px">
+            <h2 id="projectName"></h2>
+            <div>📍 <span id="location"></span> | 📅 <span id="reportDate"></span></div>
+        </div>
+
+        <div class="selector">
+            <button id="btnMachines" class="active" onclick="selectTab('machines')">⚙️ الآليات</button>
+            <button id="btnWorkers" onclick="selectTab('workers')">👷 العمال</button>
+            <button id="btnProcurement" onclick="selectTab('procurement')">🛒 المشتريات</button>
+        </div>
+
+        <div id="machinesView">
+            <div class="analytics-cards" id="machinesCards"></div>
+            <div class="chart-container"><canvas id="machinesChart" width="400" height="200"></canvas></div>
+            <div class="table-wrap">
+                <table id="machinesTable">
+                    <thead>
+                        <tr>
+                            <th>نوع الآلية</th>
+                            <th>رقم الآلية</th>
+                            <th>السائق</th>
+                            <th>إجمالي الساعات</th>
+                            <th>تكلفة الديزل</th>
+                            <th>تكلفة الصيانة</th>
+                            <th>تكلفة الزيت</th>
+                            <th>تكلفة الشحمة</th>
+                            <th>الإجمالي</th>
+                        </tr>
+                    </thead>
+                    <tbody id="machinesTbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="workersView" style="display:none">
+            <div class="analytics-cards" id="workersCards"></div>
+            <div class="chart-container"><canvas id="workersChart" width="400" height="200"></canvas></div>
+            <div class="table-wrap">
+                <table id="workersTable">
+                    <thead>
+                        <tr>
+                            <th>الاسم</th>
+                            <th>الوظيفة</th>
+                            <th>ساعات العمل</th>
+                            <th>موقع العمل</th>
+                            <th>مساحة منجزة</th>
+                        </tr>
+                    </thead>
+                    <tbody id="workersTbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="procurementView" style="display:none">
+            <div class="analytics-cards" id="procurementCards"></div>
+            <div class="chart-container"><canvas id="procurementChart" width="400" height="200"></canvas></div>
+            <div class="table-wrap">
+                <table id="procurementTable">
+                    <thead>
+                        <tr>
+                            <th>المادة</th>
+                            <th>المورد</th>
+                            <th>الكمية</th>
+                            <th>السعر الإجمالي</th>
+                        </tr>
+                    </thead>
+                    <tbody id="procurementTbody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="../script/analytics.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "eng-viewer-1",
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

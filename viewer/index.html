@@ -1,0 +1,169 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التقارير المشتركة معي والتحليل المتقدم</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+    <link rel="stylesheet" href="./style/main.css">
+</head>
+
+<body>
+
+    <div class="app-header">
+        <div class="brand">👁️ لوحة المشاهد والتحليل المجمع</div>
+        <div style="font-size: 14px; color: var(--text-secondary);" id="userEmail">...</div>
+        <div><button class="btn-secondary" onclick="logout()">خروج</button></div>
+    </div>
+
+    <div class="page-content">
+
+        <!-- 1️⃣ وحدة الفلترة المتقدمة (أيام مخصصة، شهور، أسابيع ونطاق تاريخ) -->
+        <div class="filter-section">
+            <div class="filter-title">🔍 محرك الفلترة والتصفية الذكي</div>
+            <div class="filter-grid">
+                <div class="form-group">
+                    <label>تصفية حسب الشهر</label>
+                    <select id="filterMonth" class="form-control" onchange="applyFilters()">
+                        <option value="ALL">جميع الشهور والأعوام</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>تصفية حسب الأسبوع من الشهر</label>
+                    <select id="filterWeek" class="form-control" onchange="applyFilters()">
+                        <option value="ALL">جميع أسابيع الشهر</option>
+                        <option value="1">الأسبوع الأول (الأيام 1-7)</option>
+                        <option value="2">الأسبوع الثاني (الأيام 8-14)</option>
+                        <option value="3">الأسبوع الثالث (الأيام 15-21)</option>
+                        <option value="4">الأسبوع الرابع (الأيام 22-28)</option>
+                        <option value="5">الأسبوع الخامس (الأيام 29-31)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>من تاريخ</label>
+                    <input type="date" id="filterFromDate" class="form-control" onchange="applyFilters()">
+                </div>
+                <div class="form-group">
+                    <label>إلى تاريخ</label>
+                    <input type="date" id="filterToDate" class="form-control" onchange="applyFilters()">
+                </div>
+                <div class="form-group" style="flex-direction: row; gap: 8px;">
+                    <button class="btn-secondary" style="width: 100%;" onclick="resetFilters()">🔄 إعادة تعيين</button>
+                </div>
+            </div>
+
+            <!-- تحديد الأيام يدوياً كمجموعة منفصلة وتفاعلية -->
+            <div style="margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px;">
+                <span class="manual-days-title">💡 أو حدد أياماً مخصصة بالضغط عليها (دمج يدوي متعدد الأيام):</span>
+                <div id="manualDaysList" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                    <!-- سيتم ملء الأيام هنا برمجياً -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 2️⃣ لوحة إحصائيات الجرد المجمع للمجموعات المفلترة -->
+        <div class="aggregation-banner" id="aggBanner">
+            <div class="agg-card">
+                <div class="label">عدد الأيام المدمجة</div>
+                <div class="value" id="aggDaysCount">0</div>
+            </div>
+            <div class="agg-card">
+                <div class="label">إجمالي تكلفة الديزل</div>
+                <div class="value" id="aggDiesel">0.00 د.أ</div>
+            </div>
+            <div class="agg-card">
+                <div class="label">إجمالي الصيانة</div>
+                <div class="value" id="aggMaint">0.00 د.أ</div>
+            </div>
+            <div class="agg-card">
+                <div class="label">إجمالي الزيوت والشحوم</div>
+                <div class="value" id="aggOil">0.00 د.أ</div>
+            </div>
+            <div class="agg-card">
+                <div class="label">إجمالي المشتريات</div>
+                <div class="value" id="aggProc">0.00 د.أ</div>
+            </div>
+            <div class="agg-card" style="border-color: var(--accent);">
+                <div class="label" style="color: var(--accent);">إجمالي الإنفاق الكلي</div>
+                <div class="value" id="aggTotal" style="color: var(--accent);">0.00 د.أ</div>
+            </div>
+        </div>
+
+        <!-- 3️⃣ تبويبات عرض البيانات والتحليلات -->
+        <div class="dashboard-tabs">
+            <button class="tab-btn active" onclick="switchTab('reports-list')">📋 الأيام المفلترة</button>
+            <button class="tab-btn" onclick="switchTab('charts-panel')">📊 التحليلات البيانية والرسومات</button>
+            <button class="tab-btn" onclick="switchTab('accounting-details')">💼 تفاصيل الكشف المحاسبي المجمع</button>
+        </div>
+
+        <!-- تبويب قائمة الأيام المفلترة -->
+        <div id="tab-reports-list" class="tab-content active">
+            <div class="days-grid" id="daysGrid">
+                <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-secondary);">⏳ جاري جلب
+                    البيانات والتأكد من مطابقة شروط الأمان...</div>
+            </div>
+        </div>
+
+        <!-- تبويب التحليلات البيانية -->
+        <div id="tab-charts-panel" class="tab-content">
+            <div style="margin-bottom: 12px; display: flex; justify-content: flex-end;">
+                <button class="btn-success" onclick="exportAggregatedExcel()">📥 تصدير الجرد المجمع Excel</button>
+            </div>
+            <div class="chart-layout">
+                <div class="chart-container">
+                    <div class="chart-title">📈 توزيع المصروفات التشغيلية والمشتريات (د.أ)</div>
+                    <div style="position: relative; height: 320px;">
+                        <canvas id="expenseCategoryChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">📊 تريند الإنفاق اليومي وساعات تشغيل الآليات الكلية</div>
+                    <div style="position: relative; height: 320px;">
+                        <canvas id="expenseTrendChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- تبويب تفاصيل الكشف المحاسبي المجمع -->
+        <div id="tab-accounting-details" class="tab-content">
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>التاريخ</th>
+                            <th>اسم المشروع</th>
+                            <th>الموقع</th>
+                            <th>تكلفة الديزل</th>
+                            <th>تكلفة الصيانة</th>
+                            <th>تكلفة الزيوت والشحوم</th>
+                            <th>تكلفة المشتريات</th>
+                            <th>إجمالي اليوم</th>
+                            <th>رابط المعاينة</th>
+                        </tr>
+                    </thead>
+                    <tbody id="accountingTbody">
+                        <tr>
+                            <td colspan="9" style="text-align: center;">لا توجد بيانات مفلترة لعرضها</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <script type="module" src="./script/main.js"></script>
+
+</body>
+
+</html>

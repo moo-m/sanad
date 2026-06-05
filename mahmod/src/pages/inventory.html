@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الجرد المالي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="../style/inventory.css">
+</head>
+
+<body>
+    <div class="app-header">
+        <div><button class="btn btn-secondary" onclick="window.location.href='/'">⬅ العودة إلى الأيام</button></div>
+        <div>💰 الجرد المالي</div>
+        <div></div>
+    </div>
+    <div class="page-content">
+        <div class="inv-controls">
+            <div style="display:flex;gap:12px;margin-bottom:16px">
+                <label><input type="radio" name="inv-mode" value="range" checked onchange="toggleMode()"> فترة
+                    زمنية</label>
+                <label><input type="radio" name="inv-mode" value="manual" onchange="toggleMode()"> اختيار يدوي</label>
+            </div>
+            <div id="range-mode">
+                <div style="display:flex;gap:14px;flex-wrap:wrap">
+                    <div><label>من تاريخ</label><input type="date" id="from-date"
+                            style="background:#0d1018;border:1px solid #232b3e;border-radius:8px;padding:10px;color:#e8edf8">
+                    </div>
+                    <div><label>إلى تاريخ</label><input type="date" id="to-date"
+                            style="background:#0d1018;border:1px solid #232b3e;border-radius:8px;padding:10px;color:#e8edf8">
+                    </div>
+                    <button class="btn btn-primary" onclick="generateRange()">إنشاء الجرد</button>
+                </div>
+            </div>
+            <div id="manual-mode" style="display:none">
+                <div id="manual-days-picker" class="manual-days-picker"></div>
+                <button class="btn btn-primary" style="margin-top:14px" onclick="generateManual()">إنشاء الجرد</button>
+            </div>
+        </div>
+        <div id="results" style="display:none">
+            <div class="inv-summary" id="summary-cards"></div>
+            <div class="chart-container"><canvas id="expenseChart" width="400" height="200"></canvas></div>
+            <div style="margin-bottom:16px"><button class="btn btn-success" onclick="exportInventoryExcel()">📊 تصدير
+                    الجرد Excel</button></div>
+            <div class="table-wrap" style="overflow-x:auto;border:1px solid var(--border);border-radius:8px">
+                <table id="detail-table" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>التاريخ</th>
+                            <th>النوع</th>
+                            <th>البيان</th>
+                            <th>القيمة (د.أ)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="detail-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="../script/inventory.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,124 @@
+:root {
+    --bg-primary: #0a0d14;
+    --bg-secondary: #111520;
+    --bg-card: #161b27;
+    --border: #232b3e;
+    --accent: #3b82f6;
+    --text-primary: #e8edf8;
+    --text-secondary: #8b97b5;
+    --radius: 12px;
+    --radius-sm: 8px
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    direction: rtl
+}
+
+.app-header {
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+
+.page-content {
+    padding: 28px 24px;
+    max-width: 1400px;
+    margin: 0 auto
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 700
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: #fff
+}
+
+.btn-secondary {
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border)
+}
+
+.btn-success {
+    background: rgba(16, 185, 129, .1);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, .3)
+}
+
+.inv-controls {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 20px
+}
+
+.inv-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px
+}
+
+.inv-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px
+}
+
+.inv-card .val {
+    font-size: 22px;
+    font-weight: 800
+}
+
+.chart-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 20px
+}
+
+.manual-days-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px
+}
+
+.manual-day-btn {
+    background: #4f75e0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer
+}
+
+.manual-day-btn.selected {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: var(--accent);
+    color: var(--accent)
+}

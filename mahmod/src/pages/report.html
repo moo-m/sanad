@@ -1,0 +1,74 @@
+
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التقرير اليومي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style/report.css">
+</head>
+<body>
+<div class="app-header">
+    <div><button class="btn btn-secondary" onclick="window.location.href='/'">⬅ العودة إلى الأيام</button></div>
+    <div><span id="report-title"></span></div>
+    <div><button class="btn btn-success" onclick="exportExcel()">📥 تصدير Excel</button></div>
+</div>
+<div class="page-content">
+    <div id="report-header" style="margin-bottom:20px"><h2 id="project-name"></h2><div>📍 <span id="location"></span> | 📅 <span id="report-date"></span></div></div>
+    <div class="tabs">
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="switchTab('machines')">⚙️ الآليات</button>
+            <button class="tab-btn" onclick="switchTab('workers')">👷 العمال</button>
+            <button class="tab-btn" onclick="switchTab('procurement')">🛒 المشتريات</button>
+            <button class="tab-btn" onclick="switchTab('attachments')">📎 المرفقات</button>
+        </div>
+        <div id="tab-machines" class="tab-content active">
+            <div class="table-wrap">
+                <table id="machines-table">
+                    <thead>
+                        <tr>
+                            <th>التاريخ</th>
+                            <th>نوع الآلية</th>
+                            <th>رقم الآلية</th>
+                            <th>السائق</th>
+                            <th>س البداية</th>
+                            <th>س النهاية</th>
+                            <th>المجموع (تلقائي)</th>
+                            <th>ملاحظات العمل</th>
+                            <th>ديزل؟</th>
+                            <th>الكمية</th>
+                            <th>التكلفة</th>
+                            <th>فاتورة</th>
+                            <th>صيانة؟</th>
+                            <th>ملاحظات الصيانة</th>
+                            <th>تكلفة الصيانة</th>
+                            <th>فاتورة صيانة</th>
+                            <th>زيت/شحم؟</th>
+                            <th>النوع/الكمية</th>
+                            <th>تكلفة الزيت</th>
+                            <th>فاتورة زيت</th>
+                            <th>شحم؟</th>
+                            <th>نوع الشحم</th>
+                            <th>تكلفة الشحمة</th>
+                            <th>توقيع المهندس</th>
+                            <th>حذف</th>
+                        </tr>
+                    </thead>
+                    <tbody id="machines-tbody"></tbody>
+                </table>
+            </div>
+            <button class="btn btn-primary" style="margin-top:10px" onclick="addMachineRow()">➕ إضافة صف</button>
+        </div>
+        <div id="tab-workers" class="tab-content"><div class="table-wrap"><table id="workers-table"><thead><tr><th>التاريخ</th><th>الاسم</th><th>الوظيفة</th><th>الحضور</th><th>المغادرة</th><th>ساعات العمل</th><th>موقع العمل</th><th>مساحة منجزة</th><th>ملاحظات</th><th>توقيع</th><th>حذف</th></tr></thead><tbody id="workers-tbody"></tbody></table></div><button class="btn btn-primary" style="margin-top:10px" onclick="addWorkerRow()">➕ إضافة صف</button></div>
+        <div id="tab-procurement" class="tab-content"><div class="table-wrap"><table id="procurement-table"><thead><tr><th>التاريخ</th><th>النوع/المادة</th><th>المورد</th><th>الكمية</th><th>السعر الإجمالي</th><th>الوصف</th><th>رقم الفاتورة</th><th>المرفق</th><th>توقيع</th><th>حذف</th></tr></thead><tbody id="procurement-tbody"></tbody></table></div><button class="btn btn-primary" style="margin-top:10px" onclick="addProcurementRow()">➕ إضافة صف</button></div>
+        <div id="tab-attachments" class="tab-content"><div class="table-wrap"><table id="attachments-table"><thead><tr><th>اسم الملف</th><th>النوع</th><th>تاريخ الرفع</th><th>رابط الملف</th><th>حذف</th></tr></thead><tbody id="attachments-tbody"></tbody></table></div><button class="btn btn-primary" style="margin-top:10px" onclick="uploadIndependentAttachment()">📎 رفع مرفق جديد</button></div>
+    </div>
+</div>
+<div class="auto-save-badge" id="auto-save-badge">✓ تم الحفظ تلقائياً</div>
+
+<script type="module" src="../script/report.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</body>
+</html>

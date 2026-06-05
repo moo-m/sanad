@@ -1,0 +1,181 @@
+ :root {
+     --bg-primary: #0a0d14;
+     --bg-secondary: #111520;
+     --bg-card: #161b27;
+     --bg-input: #0d1018;
+     --border: #232b3e;
+     --accent: #3b82f6;
+     --text-primary: #e8edf8;
+     --text-secondary: #8b97b5;
+     --radius: 12px;
+     --radius-sm: 8px
+ }
+
+ * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box
+ }
+
+ body {
+     font-family: 'Tajawal', sans-serif;
+     background: var(--bg-primary);
+     color: var(--text-primary);
+     direction: rtl
+ }
+
+ .app-header {
+     background: var(--bg-secondary);
+     border-bottom: 1px solid var(--border);
+     padding: 0 24px;
+     height: 60px;
+     display: flex;
+     align-items: center;
+     justify-content: space-between
+ }
+
+ .page-content {
+     padding: 28px 24px;
+     max-width: 1400px;
+     margin: 0 auto
+ }
+
+ .btn {
+     display: inline-flex;
+     align-items: center;
+     gap: 8px;
+     padding: 8px 16px;
+     border-radius: 8px;
+     border: none;
+     cursor: pointer;
+     font-weight: 700
+ }
+
+ .btn-primary {
+     background: var(--accent);
+     color: #fff
+ }
+
+ .btn-secondary {
+     background: var(--bg-secondary);
+     color: var(--text-secondary);
+     border: 1px solid var(--border)
+ }
+
+ .btn-success {
+     background: rgba(16, 185, 129, .1);
+     color: #10b981;
+     border: 1px solid rgba(16, 185, 129, .3)
+ }
+
+ .tabs {
+     background: var(--bg-card);
+     border: 1px solid var(--border);
+     border-radius: var(--radius);
+     margin-bottom: 20px
+ }
+
+ .tabs-nav {
+     display: flex;
+     border-bottom: 1px solid var(--border);
+     overflow-x: auto
+ }
+
+ .tab-btn {
+     padding: 14px 24px;
+     font-weight: 700;
+     background: none;
+     border: none;
+     color: var(--text-muted);
+     cursor: pointer;
+     border-bottom: 2px solid transparent
+ }
+
+ .tab-btn.active {
+     color: var(--accent);
+     border-bottom-color: var(--accent)
+ }
+
+ .tab-content {
+     display: none;
+     padding: 20px
+ }
+
+ .tab-content.active {
+     display: block
+ }
+
+ .table-wrap {
+     overflow-x: auto;
+     border: 1px solid var(--border);
+     border-radius: 8px
+ }
+
+ table {
+     width: 100%;
+     border-collapse: collapse;
+     font-size: 13px
+ }
+
+ th {
+     background: var(--bg-secondary);
+     padding: 10px 12px;
+     text-align: right
+ }
+
+ td {
+     padding: 8px 12px;
+     border-bottom: 1px solid var(--border)
+ }
+
+ td input,
+ td select {
+     background: var(--bg-input);
+     border: 1px solid var(--border);
+     border-radius: 4px;
+     padding: 6px 8px;
+     color: var(--text-primary);
+     width: 100%;
+     min-width: 80px
+ }
+
+ td input:focus,
+ td select:focus {
+     outline: none;
+     border-color: var(--accent)
+ }
+
+ .file-cell {
+     display: flex;
+     gap: 6px;
+     flex-wrap: wrap
+ }
+
+ .file-upload-label {
+     cursor: pointer;
+     background: var(--bg-secondary);
+     border: 1px dashed var(--border);
+     border-radius: 4px;
+     padding: 3px 8px;
+     font-size: 11px
+ }
+
+ .auto-save-badge {
+     position: fixed;
+     bottom: 20px;
+     right: 20px;
+     background: rgba(16, 185, 129, .1);
+     color: #10b981;
+     padding: 6px 12px;
+     border-radius: 20px;
+     font-size: 12px;
+     display: none
+ }
+
+ .btn-icon {
+     background: none;
+     border: none;
+     cursor: pointer;
+     font-size: 16px;
+     padding: 4px
+ }

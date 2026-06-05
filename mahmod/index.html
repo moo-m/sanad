@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - التقارير الهندسية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./src/style/main.css">
+</head>
+
+<body>
+    <div class="app-header">
+        <div class="header-brand"><span>🏗️</span>التقارير اليومية</div>
+        <div class="header-actions">
+            <button class="btn btn-secondary" onclick="window.location.href='./src/pages/inventory.html'">💰 الجرد
+                المالي</button>
+            <span id="userEmail" style="font-size:12px;color:#9ca3af"></span>
+            <button class="btn btn-secondary" onclick="logout()">خروج</button>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="dashboard-cards" id="dashboardCards">
+            <div class="dash-card">
+                <div class="label">الأيام المسجلة</div>
+                <div class="value" id="daysCount">—</div>
+            </div>
+            <div class="dash-card">
+                <div class="label">إجمالي المصروفات</div>
+                <div class="value" id="totalExpenses">—</div>
+            </div>
+            <div class="dash-card">
+                <div class="label">إجمالي العمال</div>
+                <div class="value" id="totalWorkers">—</div>
+            </div>
+            <div class="dash-card">
+                <div class="label">آخر تعديل</div>
+                <div class="value" id="lastEdit" style="font-size:14px">—</div>
+            </div>
+        </div>
+        <div class="section-header">
+            <h2>الأيام المسجلة</h2>
+            <button class="btn btn-primary" onclick="openCreateDayModal()">➕ إنشاء يوم جديد</button>
+        </div>
+        <div class="days-grid" id="daysGrid">
+            <!-- ✅ إصلاح: loading state واضح بدل الفراغ -->
+            <div style="grid-column:1/-1;text-align:center;padding:60px;color:#9ca3af" class="loading-skeleton">⏳ جارٍ
+                تحميل البيانات...</div>
+        </div>
+    </div>
+
+    <!-- نافذة إنشاء يوم جديد -->
+    <div class="modal-overlay" id="createDayModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>إنشاء يوم جديد</h3><button class="modal-close" onclick="closeModal('createDayModal')">✕</button>
+            </div>
+            <div style="margin-bottom:16px"><label>التاريخ</label><input type="date" id="newDate"
+                    style="width:100%;padding:10px;background:#0d1018;border:1px solid #2a3448;border-radius:8px;color:#e8edf8">
+            </div>
+            <div style="margin-bottom:16px"><label>اسم المشروع</label><input type="text" id="newProject"
+                    style="width:100%;padding:10px;background:#0d1018;border:1px solid #2a3448;border-radius:8px;color:#e8edf8"
+                    placeholder="مشروع الجفر"></div>
+            <div style="margin-bottom:16px"><label>اسم الموقع</label><input type="text" id="newLocation"
+                    style="width:100%;padding:10px;background:#0d1018;border:1px solid #2a3448;border-radius:8px;color:#e8edf8"
+                    placeholder="الجفر"></div>
+            <div style="display:flex;gap:10px;justify-content:flex-end"><button class="btn btn-secondary"
+                    onclick="closeModal('createDayModal')">إلغاء</button><button class="btn btn-primary"
+                    id="confirmCreateBtn">إنشاء</button></div>
+        </div>
+    </div>
+
+    <!-- نافذة المشاركة -->
+    <div class="modal-overlay" id="shareModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>مشاركة التقرير</h3><button class="modal-close" onclick="closeModal('shareModal')">✕</button>
+            </div>
+            <div><label>البريد الإلكتروني للمشاهد</label><input type="email"  id="shareEmail"
+                    class="share-input" placeholder="viewer@example.com"></div>
+            <div id="shareError" class="error-msg"></div>
+            <div class="share-list" id="shareList"></div>
+            <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:20px">
+                <button class="btn btn-secondary" onclick="closeModal('shareModal')">إلغاء</button>
+                <button class="btn btn-primary" id="confirmShareBtn">مشاركة</button>
+            </div>
+        </div>
+    </div>
+
+        <script type="module" src="./src/script/main.js"></script>
+</body>
+
+</html>
